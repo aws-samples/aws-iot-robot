@@ -25,7 +25,7 @@
     "amazon-cognito-identity-js": "^5.0.3",
     "amazon-kinesis-video-streams-webrtc": "^1.0.8",
     "aws-crt": "^1.8.1",
-    "aws-iot-device-sdk-v2": "^1.5.2",
+    "aws-iot-device-sdk-v2": "^1.6.0",
     "aws-sdk": "^2.933.0",
     "bootstrap": "^5.0.1",
     "crypto-js": "^4.0.0",
