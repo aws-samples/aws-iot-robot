@@ -1,0 +1,192 @@
+<style>
+    .boundingboxes {
+        top: 100;
+        position: absolute;
+        display: block;
+        background-color: transparent;
+        overflow: hidden;
+        z-index: 9999;
+    }
+    .box {
+        fill: none;
+        stroke-width: 2px;
+        stroke: green;
+        shape-rendering: crispEdges;
+    }
+    .boxtext {
+        fill: green;
+    }
+</style>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="#">&nbsp; AWS IoT PiBot</a>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="d-flex">
+                <select class="form-control me-2" [(ngModel)]="thingName" placeholder="PiBot IoT Thing Name" aria-label="PiBot IoT Thing Name">
+                    <option class="p-2" *ngFor="let thingName of availableThings" [ngValue]="thingName">{{thingName}}</option>
+                </select>
+                <button class="btn btn-outline-success" type="button" (click)="setThingName(thingName)">Set</button>
+            </div>
+
+            <ul class="nav navbar-nav ms-auto">
+                <li class="nav-item mr-1">
+                    <h5 class="navbar-text">Selected Robot: {{thingName}}</h5>
+                </li>
+                <li class="nav-item m-1">
+                    <button *ngIf="devicesConnected['pi-remote'] == 'connected'" class="btn btn-sm btn-success mr-1">
+                        <span class="badge badge-success p-1 align-right">Remote Connected</span>
+                    </button>
+                    <button *ngIf="devicesConnected['pi-remote'] == 'disconnected'" class="btn btn-sm btn-danger mr-1">
+                        <span class="badge badge-danger p-1 align-right">Remote Not Connected</span>
+                    </button>
+                </li>
+                <li class="nav-item m-1">
+                    <button *ngIf="devicesConnected[thingName] == 'connected'" class="btn btn-sm btn-success mr-1">
+                        <span class="badge badge-success p-1 align-right">Robot Connected</span>
+                    </button>
+                    <button *ngIf="devicesConnected[thingName] == 'disconnected'" class="btn btn-sm btn-danger mr-1">
+                        <span class="badge badge-danger p-1 align-right">Robot Not Connected</span>
+                    </button>
+                </li>
+                <li class="nav-item m-1">
+                    <button *ngIf="mqttConnected" class="btn btn-sm btn-success mr-1">
+                        <span class="badge badge-success p-1 align-right">MQTT Connected</span>
+                    </button>
+                    <button *ngIf="!mqttConnected" class="btn btn-sm btn-danger mr-1">
+                        <span class="badge badge-danger p-1 align-right">MQTT Not Connected</span>
+                    </button>
+                </li>
+                <li class="nav-item m-1">
+                    <button class="btn btn-sm btn-outline-light" (click)="logout()">Logout</button>
+                </li>
+            </ul>  
+        </div>
+        
+    </div>
+</nav>
+
+<div class="container-fluid">
+
+    <div class="row m-2">
+
+        <div class="col col-md-5 video-container">
+            <div class="card shadow mb-4 d-flex align-items-stretch">
+                <div class="card-header text-white bg-secondary">
+                    <h4>Video Stream</h4>
+                    <div class="boundingboxes">
+                        <svg width="640" height="480">
+                            <g *ngFor="let box of boundingBoxes">
+                                <rect class="box"
+                                        [attr.x]="box.Left"
+                                        [attr.y]="box.Top"
+                                        [attr.height]="box.Height"
+                                        [attr.width]="box.Width">
+                                </rect>
+                                <text class="boxtext"
+                                    [attr.x]="box.Left"
+                                    [attr.y]="box.Top-10">{{box.Name}}
+                                </text>
+                            </g>
+                        </svg>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <video id="remoteview" width="640" height="480" autoplay playsinline controls></video>
+                </div>
+                <canvas id="canvas" width="640" height="480" style="display:none"></canvas>
+                <button class="m-1 btn btn-sm btn-success" *ngIf="stream == 'no'" (click)="startViewer(false,true,false,false)">Connect to WebRTC Stream</button>
+                <button class="m-1 btn btn-sm btn-danger" *ngIf="stream == 'yes'" (click)="stopViewer()">Disconnect WebRTC Stream</button>                
+                <button class="m-1 btn btn-sm btn-success" *ngIf="detect == 'no'" (click)="startDetection()">Start Detection</button>
+                <button class="m-1 btn btn-sm btn-danger" *ngIf="detect == 'yes'" (click)="stopDetection()">Stop Detection</button>
+            </div>
+        </div>
+
+        <div class="col col-md-2">
+            <div class="row">
+                <div class="col">
+                    <app-joymove [thingName]="thingName"></app-joymove>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <app-joycam [thingName]="thingName"></app-joycam>
+                </div>
+            </div>
+        </div>
+
+        <div class="col col-md-5">
+            <app-map></app-map>
+        </div>
+
+    </div>
+
+    <div class="row m-2">
+
+        <div class="col col-md-6">
+            <div class="card shadow mb-4 d-flex align-items-stretch h-100">
+                <div class="card-header text-white bg-secondary">
+                    <h4>What do you want to look for?</h4>
+                </div>
+                <div class="card-body h-100 overflow-auto">
+                    <div class="input-group">
+                        <div class="input-group-prepen">
+                            <span class="input-group-text">Find:</span>
+                        </div>
+                        <input type="text" class="form-control" [(ngModel)]="findLabel" aria-label="Find Something" aria-describedby="add-find-item">
+                        <button id="add-find-item" class="btn btn-secondary" type="button" (click)="addFindItem(findLabel)">Add</button>
+                    </div>
+                    <div class="row mt-2">
+
+                        <div class="col">
+                            <div class="card m-1">
+                                <div class="card-header bg-light">
+                                    <h4>Looking For</h4>
+                                </div>
+                                <div class="card-body">
+                                    <button *ngFor="let label of findLabels" type="button" class="btn btn-sm btn-primary m-2">{{label}}</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="card m-1">
+                                <div class="card-header bg-light">
+                                    <h4>Found</h4>
+                                </div>
+                                <div class="card-body">
+                                    <button *ngFor="let label of foundLabels" type="button" class="btn btn-sm btn-success m-2">{{label}}</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col col-md-6">
+            <div class="card shadow mb-4 d-flex align-items-stretch h-100">
+                <div class="card-header text-white bg-secondary">
+                    <h4>Detected Objects</h4>
+                </div>
+                <div class="card-body h-100 overflow-auto">
+                    <div class="input-group">
+                        <div class="input-group-prepen">
+                            <span class="input-group-text">Minimum Confidence %</span>
+                        </div>
+                        <input type="number" min="25" max="100" class="form-control" [(ngModel)]="confidence" aria-label="Percentage confidence">
+                    </div>
+                    <button *ngFor="let label of (detectedLabels | slice:-10)" type="button" class="btn btn-sm btn-primary m-2">{{label.name}} : {{label.confidence}}%</button>
+                </div>
+            </div>            
+        </div>
+
+    </div>
+
+</div>

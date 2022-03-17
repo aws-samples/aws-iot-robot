@@ -1,0 +1,22 @@
+
+<div class="card shadow mb-4 d-flex align-items-stretch">
+    <div class="card-header text-white bg-secondary">
+        <div class="row">
+            <div class="col">
+                <h4>Journey</h4>
+            </div>
+            <div class="col">
+                <button *ngIf="!mqttConnected && proximity > 20" class="btn btn-sm btn-success">
+                    <span class="badge badge-success p-1 align-right">Obstacle Detected: {{proximity}} cm</span>
+                </button>
+                <button *ngIf="!mqttConnected && proximity <= 20" class="btn btn-sm btn-danger">
+                    <span class="badge badge-danger p-1 align-right">Obstacle Detected: {{proximity}} cm</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <!--<input type="range" class="form-range" min="0" max="180" id="calibrate" (change)="calibrate($event)">-->
+        <canvas #mapcanvas id="mapcanvas" width="600" height="500"></canvas>
+    </div>
+</div>

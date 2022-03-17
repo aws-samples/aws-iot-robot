@@ -1,0 +1,13 @@
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+        nodejs: 14
+        python: 3.8
+  build:
+    commands:
+      - aws cloudformation package --template-file $CFPATH/$TEMPLATE --s3-bucket $BUCKET --s3-prefix $S3PREFIX --output-template-file outputtemplate.yml
+      - ls
+artifacts:
+  files:
+    - '**/*'

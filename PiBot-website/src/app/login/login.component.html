@@ -1,0 +1,39 @@
+<body class="text-center">
+  <div class="container">
+
+    <div class="row m-5 justify-content-center">
+      <div class="col-lg-4 col-sm-12">
+
+        <div *ngIf="auth.resetRequired == false" class="card shadow">
+          <div class="card-header bg-info">
+            <h1 class="h3 m-3 font-weight-normal">PiBot Login</h1>
+          </div>
+          <div class="card-body bg-light">
+            <label for="inputUser" class="sr-only mt-2">Username</label>
+            <input type="text" id="inputUser" class="form-control" placeholder="Username" [(ngModel)]="username" name="first" required autofocus>
+            <label for="inputPassword" class="sr-only mt-2">Password</label>
+            <input type="password" id="inputPassword" class="form-control" placeholder="Password" [(ngModel)]="password" required>
+            <div *ngIf="loginFailed" class="mt-2 alert alert-danger">{{loginStatus}}</div>
+            <button class="mt-2 btn btn-lg btn-primary btn-block" type="submit" (click)="login()">Sign in</button>
+          </div>
+        </div>
+
+        <div *ngIf="auth.resetRequired == true" class="card shadow">
+          <div class="card-header bg-info">
+            <h1 class="h3 m-3 font-weight-normal">Password Reset</h1>
+          </div>
+          <div class="card-body bg-light">
+            <label for="inputUser" class="sr-only mt-2">Old Password</label>
+            <input type="password" id="inputUser" class="form-control" placeholder="Old Password" [(ngModel)]="oldPw" name="old" required autofocus>
+            <label for="inputPassword" class="sr-only mt-2">New Password</label>
+            <input type="password" id="inputPassword" class="form-control" placeholder="New Password" [(ngModel)]="newPw" required>
+            <button *ngIf="!auth.returnToLogin" class="mt-2 btn btn-lg btn-primary btn-block" type="submit" (click)="resetPassword(oldPw,newPw)">Reset Password</button>
+            <button *ngIf="auth.returnToLogin" class="mt-2 btn btn-lg btn-success btn-block" type="submit" (click)="returnToLogin()">Reset Complete - Click to Login</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <a href="https://aws.amazon.com/what-is-cloud-computing"><img src="https://d0.awsstatic.com/logos/powered-by-aws.png" alt="Powered by AWS Cloud Computing"></a>
+  </div>
+</body>

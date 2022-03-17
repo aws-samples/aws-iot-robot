@@ -1,0 +1,85 @@
+<div class="row m-5 justify-content-center">
+    <div class="col-lg-6 col-sm-12">
+        <div class="alert alert-warning alert-heading">
+            <h4 class="text-center">You have {{timeLeft}} seconds to complete the provisioning process</h4>
+        </div>
+    </div>
+</div>
+
+<div class="row m-5 justify-content-center">
+    <div class="col-lg-6 col-sm-12">
+        <div class="card shadow mb-4 d-flex align-items-stretch">
+            <div class="card-header text-white bg-secondary">
+                <h4>1. Enter Configuration Information</h4>
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="deviceName">Device Name</label>
+                    <input type="text" [(ngModel)]="deviceName" class="form-control" id="deviceName" placeholder="Enter a name for the Greengrass v2 Core being provisioned">
+                </div>
+                <div class="form-group">
+                    <label for="templateName">Fleet Template Name</label>
+                    <select class="form-control" [(ngModel)]="templateName" (ngModelChange)="onSelectTemplate(templateName)">
+                        <option *ngFor="let template of templates" [ngValue]="template.templateName">{{template.templateName}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>  
+    </div>
+</div>
+
+<div class="row m-5 justify-content-center">
+    <div class="col-lg-6 col-sm-12">
+        <div class="card shadow mb-4 d-flex align-items-stretch">
+            <div class="card-header text-white bg-secondary">
+                <h4>2. Request Provisioning Certificates</h4>
+            </div>
+            <div class="card-body">
+                <p class="card-text">The claim certificates are valid for 5 minutes only - the timer will start once you click on the 'Request' button below.  Complete all stages within this time or you will need to start again.</p>
+                <button class="mt-2 btn btn-success" (click)="getProvisioningCerts()" [disabled]="provStage > 1">{{provRequestStatus}}</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row m-5 justify-content-center">
+    <div class="col-lg-6 col-sm-12">
+        <div class="card shadow mb-4 d-flex align-items-stretch">
+            <div class="card-header text-white bg-secondary">
+                <h4>3. Deploy Provisioning Certificates</h4>
+            </div>
+            <div class="card-body">
+                <p class="card-text">Once the claim certificates have been requested, deploy them to your device by clicking on the button below.</p>
+                <button class="btn btn-success" (click)="deployProvisioningCerts()" [disabled]="provStage != 2">{{provDeployStatus}}</button>
+            </div>
+        </div>
+</div>
+
+<div class="row m-5 justify-content-center">
+    <div class="col-lg-6 col-sm-12">
+        <div class="card shadow mb-4 d-flex align-items-stretch">
+            <div class="card-header text-white bg-secondary">
+                <h4>4. Create Provisioning Config</h4>
+            </div>
+            <div class="card-body">
+                <p class="card-text">The stage uses the certificates and account information to create a config.yaml file on the target that is used for the Greengrass provisioning via the Greengrass v2 Fleet Provisioning Plug-in.</p>
+                <button class="mt-2 btn btn-success" (click)="createConfigYaml()" [disabled]="provStage != 3">{{configDeployStatus}}</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row m-5 justify-content-center">
+    <div class="col-lg-6 col-sm-12">
+        <div class="card shadow mb-4 d-flex align-items-stretch">
+            <div class="card-header text-white bg-secondary">
+                <h4>5. Install and Provision Greengrass</h4>
+            </div>
+            <div class="card-body">
+                <p class="card-text">The final stage installs Greengrass v2 and provisions to IoT Core.</p>
+                <button class="mt-2 btn btn-success" (click)="provision()" [disabled]="provStage != 4">{{fullDeployStatus}}</button>
+            </div>
+        </div>
+    </div>
+</div>
+

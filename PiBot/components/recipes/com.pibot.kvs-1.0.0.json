@@ -1,0 +1,31 @@
+{
+    "RecipeFormatVersion": "2020-01-25",
+    "ComponentName": "com.pibot.kvs",
+    "ComponentDescription": "Start KVS webrtc stream",
+    "ComponentPublisher": "AWS",
+    "ComponentVersion": "1.0.10",
+    "ComponentConfiguration": {
+        "DefaultConfiguration": {
+          "Message": "Hello KVS!"
+        }
+    },
+    "Manifests": [
+      {
+        "Platform": {
+          "os": "linux"
+        },
+        "Lifecycle": {
+          "Run": {
+            "RequiresPrivilege": true,
+            "script": "python3 {artifacts:path}/start-webrtc.py \"{iot:thingName}\""
+          }
+        },
+        "Artifacts": [
+          {
+            "URI": "s3://[YOUR_BUCKET]]/ggv2-components/com.pibot.kvs/1.0.0/start-webrtc.py",
+            "Unarchive": "NONE"
+          }
+        ]
+      }
+    ]
+  }

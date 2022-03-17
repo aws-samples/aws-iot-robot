@@ -1,0 +1,22 @@
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+      nodejs: 12
+    commands:
+      - npm install -g @angular/cli
+      - pip install boto3
+      - python3 PiBot-website/build-config.py
+  pre_build:
+    commands:
+      - cd PiBot-website
+      - npm install bootstrap rxjs
+      - npm install amazon-cognito-identity-js amazon-kinesis-video-streams-webrtc aws-crt aws-sdk paho-mqtt @types/node
+  build:
+    commands:
+      - ng build --configuration=$BUILD_ENV --build-optimizer
+artifacts:
+  type: zip
+  base-directory: PiBot-website/dist
+  files:
+    - '**/*'

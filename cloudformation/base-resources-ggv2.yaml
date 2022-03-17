@@ -1,0 +1,254 @@
+AWSTemplateFormatVersion: 2010-09-09
+Transform: 'AWS::Serverless-2016-10-31'
+Resources:
+  #######################
+  # IAM Roles
+  #######################
+  # Cognito for PiBot Web application
+  cognitoAuthRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: "PiBot_web_cogAuth_role"
+      AssumeRolePolicyDocument:
+        Statement:
+          - Effect: "Allow"
+            Principal:
+              Federated: 'cognito-identity.amazonaws.com'
+            Action:
+              - 'sts:AssumeRoleWithWebIdentity'
+            Condition:
+              StringEquals: 
+                "cognito-identity.amazonaws.com:aud": !Ref PibotIDPool
+              "ForAnyValue:StringLike": 
+                "cognito-identity.amazonaws.com:amr": authenticated
+      Path: '/'
+      Policies:
+        - PolicyName: "CognitoAuthorizedPolicy"
+          PolicyDocument: 
+            Version: "2012-10-17"
+            Statement: 
+              - Effect: "Allow"
+                Action:
+                  - "mobileanalytics:PutEvents"
+                  - "cognito-sync:*"
+                  - "cognito-identity:*"
+                Resource: "*"
+        - PolicyName: "iot-access"
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement: 
+              - Effect: "Allow"
+                Action:
+                  - "iot:Receive"
+                  - "iot:Send"
+                  - "iot:Subscribe"
+                  - "iot:Publish"
+                  - "iot:Connect"
+                  - "iot:GetThingShadow"
+                  - "iot:UpdateThingShadow"
+                  - "iot:AttachPrincipalPolicy"
+                  - "iot:ListThings"
+                Resource: 
+                  - "*" 
+        - PolicyName: "kinesis-webrtc"
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement: 
+              - Effect: "Allow"
+                Action:
+                  - "kinesisvideo:ConnectAsViewer"
+                  - "kinesisvideo:Describe*"
+                  - "kinesisvideo:Get*"
+                  - "kinesisvideo:List*"
+                  - "rekognition:DetectLabels"
+                Resource: 
+                  - "*" 
+  cognitoUnauthRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: "PiBot_web_cogUNAuth_role"
+      AssumeRolePolicyDocument:
+        Statement:
+          - Effect: "Allow"
+            Principal:
+              Federated: 'cognito-identity.amazonaws.com'
+            Action:
+              - 'sts:AssumeRoleWithWebIdentity'
+            Condition:
+              StringEquals: 
+                "cognito-identity.amazonaws.com:aud": !Ref PibotIDPool
+              "ForAnyValue:StringLike": 
+                "cognito-identity.amazonaws.com:amr": unauthenticated
+      Path: '/'
+      Policies:
+        - PolicyName: "CognitoUnauthorizedPolicy"
+          PolicyDocument: 
+            Version: "2012-10-17"
+            Statement: 
+              - Effect: "Allow"
+                Action:
+                  - "mobileanalytics:PutEvents"
+                  - "cognito-sync:*"
+                Resource: "*"
+  # Cognito IoT Provisioning Roles
+  cognitoProvAuthRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: "PiBot_prov_cogAuth_role"
+      AssumeRolePolicyDocument:
+        Statement:
+          - Effect: "Allow"
+            Principal:
+              Federated: 'cognito-identity.amazonaws.com'
+            Action:
+              - 'sts:AssumeRoleWithWebIdentity'
+            Condition:
+              StringEquals: 
+                "cognito-identity.amazonaws.com:aud": !Ref ProvisioningIDPool
+              "ForAnyValue:StringLike": 
+                "cognito-identity.amazonaws.com:amr": authenticated
+      Path: '/'
+      Policies:
+        - PolicyName: "CognitoAuthorizedPolicy"
+          PolicyDocument: 
+            Version: "2012-10-17"
+            Statement: 
+              - Effect: "Allow"
+                Action:
+                  - "mobileanalytics:PutEvents"
+                  - "cognito-sync:*"
+                  - "cognito-identity:*"
+                Resource: "*"
+        - PolicyName: "iot-trusted-user-provisioning"
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement: 
+              - Effect: "Allow"
+                Action:
+                  - "iot:CreateProvisioningClaim"
+                  - "iot:AttachPrincipalPolicy"
+                  - "iot:ListProvisioningTemplates"
+                  - "iot:DescribeEndpoint"
+                Resource: 
+                  - "*" 
+  cognitoProvUnauthRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: "PiBot_prov_cogUNAuth_role"
+      AssumeRolePolicyDocument:
+        Statement:
+          - Effect: "Allow"
+            Principal:
+              Federated: 'cognito-identity.amazonaws.com'
+            Action:
+              - 'sts:AssumeRoleWithWebIdentity'
+            Condition:
+              StringEquals: 
+                "cognito-identity.amazonaws.com:aud": !Ref ProvisioningIDPool
+              "ForAnyValue:StringLike": 
+                "cognito-identity.amazonaws.com:amr": unauthenticated
+      Path: '/'
+      Policies:
+        - PolicyName: "CognitoUnauthorizedPolicy"
+          PolicyDocument: 
+            Version: "2012-10-17"
+            Statement: 
+              - Effect: "Allow"
+                Action:
+                  - "mobileanalytics:PutEvents"
+                  - "cognito-sync:*"
+                Resource: "*"
+  ###################################
+  # Cognito
+  ###################################
+  PiBotUserPool:
+    Type: AWS::Cognito::UserPool
+    Properties:
+      UserPoolName: "pibot-userpool"
+      Schema:
+      - Name: name
+        AttributeDataType: String
+        Mutable: true
+        Required: true
+      - Name: email
+        AttributeDataType: String
+        Mutable: false
+        Required: true
+  PibotUserPoolClient:
+    Type: "AWS::Cognito::UserPoolClient"
+    Properties:
+      ClientName: pibot_client
+      GenerateSecret: false
+      UserPoolId: !Ref PiBotUserPool
+  PibotIDPool:
+    Type: AWS::Cognito::IdentityPool
+    Properties:
+      IdentityPoolName: pibot_id_pool
+      AllowUnauthenticatedIdentities: true
+      CognitoIdentityProviders: 
+        - ClientId: !Ref PibotUserPoolClient
+          ProviderName: !GetAtt PiBotUserPool.ProviderName
+  PibotIDRoleMap:
+    Type: AWS::Cognito::IdentityPoolRoleAttachment
+    Properties:
+      IdentityPoolId: !Ref PibotIDPool
+      Roles:
+        unauthenticated: !GetAtt cognitoUnauthRole.Arn
+        authenticated: !GetAtt cognitoAuthRole.Arn
+  # Cognito for IoT Trusted User Provisioning
+  ProvisioningUserPool:
+    Type: AWS::Cognito::UserPool
+    Properties:
+      UserPoolName: "provisioning-userpool"
+      Schema:
+      - Name: name
+        AttributeDataType: String
+        Mutable: true
+        Required: true
+      - Name: email
+        AttributeDataType: String
+        Mutable: false
+        Required: true
+  ProvisioningUserPoolClient:
+    Type: "AWS::Cognito::UserPoolClient"
+    Properties:
+      ClientName: provisioning_client
+      GenerateSecret: false
+      UserPoolId: !Ref ProvisioningUserPool
+  ProvisioningIDPool:
+    Type: AWS::Cognito::IdentityPool
+    Properties:
+      IdentityPoolName: provisioning_id_pool
+      AllowUnauthenticatedIdentities: true
+      CognitoIdentityProviders: 
+        - ClientId: !Ref ProvisioningUserPoolClient
+          ProviderName: !GetAtt ProvisioningUserPool.ProviderName
+  PibotProvIDRoleMap:
+    Type: AWS::Cognito::IdentityPoolRoleAttachment
+    Properties:
+      IdentityPoolId: !Ref ProvisioningIDPool
+      Roles:
+        unauthenticated: !GetAtt cognitoProvUnauthRole.Arn
+        authenticated: !GetAtt cognitoProvAuthRole.Arn
+#####################################################
+# Outputs
+#####################################################
+Outputs:
+  cognitoIdPoolIdweb:
+    Description: 'Identity Pool ID for Cognito auth for the main web app'
+    Value: !Ref PibotIDPool
+  cognitoUserPoolIdweb:
+    Description: 'UserPool ID for Cognito auth for the main web app'
+    Value: !Ref PiBotUserPool
+  cognitoClientIdweb:
+    Description: 'UserPool client ID for the main web app'
+    Value: !Ref PibotUserPoolClient
+  cognitoIdPoolIdprov:
+    Description: 'Identity Pool ID for Cognito auth for the Trusted User Provisioning web app'
+    Value: !Ref ProvisioningIDPool
+  cognitoUserPoolprov:
+    Description: 'UserPool Pool ID for Cognito auth for the Trusted User Provisioning web app'
+    Value: !Ref ProvisioningUserPool
+  cognitoClientIdprov:
+    Description: 'UserPool client ID for the Trusted User Provisioning web app'
+    Value: !Ref ProvisioningUserPoolClient

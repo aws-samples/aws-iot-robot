@@ -1,0 +1,63 @@
+{
+    "RecipeFormatVersion": "2020-01-25",
+    "ComponentName": "com.pibot.move",
+    "ComponentDescription": "Control PiBot motors and servos",
+    "ComponentPublisher": "AWS",
+    "ComponentVersion": "1.0.0",
+    "ComponentDependencies": {
+      "aws.greengrass.TokenExchangeService": {
+        "VersionRequirement": "^2.0.0",
+        "DependencyType": "HARD"
+      }
+    },
+    "ComponentConfiguration": {
+      "DefaultConfiguration": {
+        "camera_pin_x": "23",
+        "camera_pin_y": "24",
+        "lcoil_pins": "21,20,16,12",
+        "rcoil_pins": "26,19,13,6",
+        "accessControl": {
+          "aws.greengrass.ipc.mqttproxy": {
+            "com.pibot.move:mqttproxy:1": {
+              "policyDescription": "Subscribe to IoT Core MQTT",
+              "operations": [
+                "aws.greengrass#SubscribeToIoTCore"
+              ],
+              "resources": [
+                "$aws/things/pibot-ggv2/shadow/update/accepted"
+              ]
+            },
+            "com.pibot.move:publisher:1": {
+              "policyDescription": "Publish to IoT Core MQTT",
+              "operations": [
+                "aws.greengrass#PublishToIoTCore"
+              ],
+              "resources": [
+                "$aws/things/pibot-ggv2/shadow/update"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "Manifests": [
+      {
+        "Platform": {
+          "os": "linux"
+        },
+        "Lifecycle": {
+          "Install": {
+            "RequiresPrivilege": true,
+            "script" : "python3 -m pip install --user awsiotsdk"
+          },
+          "Run": "python3 {artifacts:path}/pibot-move.py \"{configuration:/camera_pin_x}\" \"{configuration:/camera_pin_y}\" \"{configuration:/lcoil_pins}\" \"{configuration:/rcoil_pins}\" \"{iot:thingName}\""
+        },
+        "Artifacts": [
+          {
+            "URI": "s3://[YOUR_BUCKET]/ggv2-components/com.pibot.move/1.0.0/pibot-move.py",
+            "Unarchive": "NONE"
+          }
+        ]
+      }
+    ]
+  }
