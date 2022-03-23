@@ -1,1 +1,0 @@
-{"ast":null,"code":"module.exports = self.fetch || (self.fetch = require('unfetch').default || require('unfetch'));","map":null,"metadata":{},"sourceType":"script"}
