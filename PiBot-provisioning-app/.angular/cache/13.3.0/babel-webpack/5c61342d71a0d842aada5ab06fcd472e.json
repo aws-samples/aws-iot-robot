@@ -1,1 +1,0 @@
-{"ast":null,"code":"'use strict';\n\nexport var region = \"eu-west-1\";\nexport var cognitoIdPoolId = \"provisioning-id-pool\";\nexport var cognitoUserPool = \"provisioning-user-pool\";\nexport var cognitoClientId = \"provisioning-app-id\";\nexport var cognitoIoTPolicy = \"pibot-provisioning-policy\";","map":null,"metadata":{},"sourceType":"module"}
