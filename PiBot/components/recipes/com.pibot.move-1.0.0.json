@@ -54,7 +54,7 @@
         },
         "Artifacts": [
           {
-            "URI": "s3://[YOUR_BUCKET]/ggv2-components/com.pibot.move/1.0.0/pibot-move.py",
+            "URI": "s3://<YOUR_BUCKET>/ggv2-components/com.pibot.move/1.0.0/pibot-move.py",
             "Unarchive": "NONE"
           }
         ]

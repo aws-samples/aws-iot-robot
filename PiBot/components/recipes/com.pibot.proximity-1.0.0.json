@@ -1,6 +1,6 @@
 {
     "RecipeFormatVersion": "2020-01-25",
-    "ComponentName": "com.pibot.proxmity",
+    "ComponentName": "com.pibot.proximity",
     "ComponentDescription": "Control proximity sensor",
     "ComponentPublisher": "AWS",
     "ComponentVersion": "1.0.0",
@@ -40,7 +40,7 @@
         },
         "Artifacts": [
           {
-            "URI": "s3://[YOUR_BUCKET]/[S3_PATH]/pibot-proximity.py",
+            "URI": "s3://<YOUR_BUCKET>/ggv2-components/com.pibot.proximity/1.0.0/pibot-proximity.py",
             "Unarchive": "NONE"
           }
         ]

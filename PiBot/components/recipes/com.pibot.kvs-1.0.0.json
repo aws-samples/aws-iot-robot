@@ -3,7 +3,7 @@
     "ComponentName": "com.pibot.kvs",
     "ComponentDescription": "Start KVS webrtc stream",
     "ComponentPublisher": "AWS",
-    "ComponentVersion": "1.0.10",
+    "ComponentVersion": "1.0.0",
     "ComponentConfiguration": {
         "DefaultConfiguration": {
           "Message": "Hello KVS!"
@@ -22,7 +22,7 @@
         },
         "Artifacts": [
           {
-            "URI": "s3://[YOUR_BUCKET]]/ggv2-components/com.pibot.kvs/1.0.0/start-webrtc.py",
+            "URI": "s3://<YOUR_BUCKET>/ggv2-components/com.pibot.kvs/1.0.0/start-webrtc.py",
             "Unarchive": "NONE"
           }
         ]
