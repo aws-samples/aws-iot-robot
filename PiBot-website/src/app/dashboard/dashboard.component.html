@@ -30,7 +30,6 @@
                 <select class="form-control me-2" [(ngModel)]="thingName" placeholder="PiBot IoT Thing Name" aria-label="PiBot IoT Thing Name">
                     <option class="p-2" *ngFor="let thingName of availableThings" [ngValue]="thingName">{{thingName}}</option>
                 </select>
-                <button class="btn btn-outline-success" type="button" (click)="setThingName(thingName)">Set</button>
             </div>
 
             <ul class="nav navbar-nav ms-auto">
