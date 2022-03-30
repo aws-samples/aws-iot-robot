@@ -1,0 +1,1 @@
+{"ast":null,"code":"module.exports = {\n  //provide realtime clock for performance measurement\n  now: function now() {\n    if (typeof performance !== 'undefined' && typeof performance.now === 'function') {\n      return performance.now();\n    }\n\n    return Date.now();\n  }\n};","map":null,"metadata":{},"sourceType":"script"}
