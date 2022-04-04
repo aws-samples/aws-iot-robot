@@ -1,0 +1,1 @@
+{"ast":null,"code":"var AWS = require('../core'); // pull in CloudFront signer\n\n\nrequire('../cloudfront/signer');\n\nAWS.util.update(AWS.CloudFront.prototype, {\n  setupRequestListeners: function setupRequestListeners(request) {\n    request.addListener('extractData', AWS.util.hoistPayloadMember);\n  }\n});","map":null,"metadata":{},"sourceType":"script"}
