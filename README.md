@@ -2,7 +2,7 @@
 
 The code and kit list in this repository enables the building of an AWS IoT and AWS Greengrass (v2) controlled Raspberry Pi robot.  This repository provides the code and assets for an AWS IoT workshop - please refer to that workshop (URL TBC) for detailed build instructions.
 
-There are a number of physical components required to build the robot itself, and this has been done using readily available and low cost parts to hopefully give more people the opportunity to build their own IoT Robot (AWS IoT PiBot!).
+There are a number of physical components required to build the robot itself, and this has been done using readily available and low cost parts to hopefully give more people the opportunity to build their own IoT Robot.
 
 ## Introduction
 
@@ -10,8 +10,8 @@ You will need an AWS account in which to build this solution.  The solution demo
 
 The core components of the solution are:
 - A Web site/application - Using Angular, the web app displays robot movements, a WebRTC video stream from the PiBot camera and allows control of the camera direction
-- PiBot - A Raspberry Pi running AWS IoT Greengrass for managing the Lambda functions that control the PiBot actions
-- PiRemote - A second Raspberry Pi (Pi Zero W) acts as a remote controller for the robot, using MQTT for communication over wireless.  The remote uses an accelerometer - you tilt the remote and the PiBot moves in that direction.
+- Robot - A Raspberry Pi running AWS IoT Greengrass for managing the Lambda functions that control the PiBot actions
+- Remote Control - A second Raspberry Pi (Pi Zero W) acts as a remote controller for the robot, using MQTT for communication over wireless.  The remote uses an accelerometer - you tilt the remote and the PiBot moves in that direction.
 
 CloudFormation templates are provided to create the core AWS resources and also the AWS IoT specific resources.
 
