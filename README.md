@@ -11,7 +11,7 @@ You will need an AWS account in which to build this solution.  The solution demo
 The core components of the solution are:
 - A Web site/application - Using Angular, the web app displays robot movements, a WebRTC video stream from the PiBot camera and allows control of the camera direction
 - Robot - A Raspberry Pi running AWS IoT Greengrass for managing the Lambda functions that control the PiBot actions
-- Remote Control - A second Raspberry Pi (Pi Zero W) acts as a remote controller for the robot, using MQTT for communication over wireless.  The remote uses an accelerometer - you tilt the remote and the PiBot moves in that direction.
+- Remote Control - A second Raspberry Pi (Pi Zero W) acts as a remote controller for the robot, using MQTT for communication over wireless.  The remote uses an accelerometer - you tilt the remote and the robot moves in that direction.
 
 CloudFormation templates are provided to create the core AWS resources and also the AWS IoT specific resources.
 
