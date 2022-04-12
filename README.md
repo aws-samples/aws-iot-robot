@@ -21,6 +21,10 @@ A robot :-)
 
 ![robot and remote](assets/robot-and-remote.jpg)
 
+And a web application that can also control and track the robot and receives a video feed from the camera.
+
+![robot web application](assets/web-full-page.jpg)
+
 ## Architecture
 
 The architecture diagram below shows the components of the service:
@@ -81,7 +85,7 @@ Please refer to the AWS IoT Workshop (URL TBC) for detailed build intructions.
 
 ### Setting up PiRemote
 
-The PiRemote uses the AWS SDK to connect to IoT Core, so does NOT need Greengrass installed.  The scripts on the Pi-Remote are Python 3 base - review the scripts for the Pi-zero-remote for the Paython modules that you need to install to run the script.
+The PiRemote uses the AWS SDK to connect to IoT Core, so does NOT need Greengrass installed.  The scripts on the Pi-Remote are Python 3 based - review the scripts for the Pi-zero-remote for the Python modules that you need to install to run the script.
 
 There is no automated provisioning for the remote yet, so you will need to create the certificates in IoT Core for the Pi-Remote Thing and copy them to the device.  Adapting the PiBot Trusted User Provisioning web app should be pretty simple to provision the Pi-Remote in the same way.
 
