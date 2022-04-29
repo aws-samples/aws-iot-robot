@@ -77,7 +77,7 @@ The overall build sequence is as follows:
 
 ### Steps
 
-Please refer to the AWS IoT Workshop (URL TBC) for detailed build intructions.
+Please refer to the AWS IoT Workshop (https://catalog.us-east-1.prod.workshops.aws/workshops/446304b7-b946-4c40-b78f-08bf0025d8f6) for detailed and step-by-step build instructions.
 
 #### Wiring for PiBot GPIO Pins
 
