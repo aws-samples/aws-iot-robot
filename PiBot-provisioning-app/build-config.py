@@ -41,8 +41,8 @@ for idp in id_pools['IdentityPools']:
 		id_pool_id = idp['IdentityPoolId']
 
 # Now update awsconfig.ts with correct values
-placeholders = ['provisioning-user-pool','provisioning-id-pool','provisioning-app-id']
-final_vals = (user_pool_id,id_pool_id,app_id)
+placeholders = ['aws-region','provisioning-user-pool','provisioning-id-pool','provisioning-app-id']
+final_vals = (args.region,user_pool_id,id_pool_id,app_id)
 
 with open(aws_config_file,'r') as input:
 	config_data = input.read()
