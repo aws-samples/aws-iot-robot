@@ -3,10 +3,15 @@
 # The script should executed as part of the pre-build in the buildspec.yml (example included in the same folder as this script)
 
 import boto3
+import argparse
 
-upclient = boto3.client('cognito-idp')
-idclient = boto3.client('cognito-identity')
-iotclient = boto3.client('iot')
+parser = argparse.ArgumentParser(description="Configure AWS parameters for web application")
+parser.add_argument('--region', required=True, default="eu-west-1", help="The AWS region you are using for the workshop")
+args = parser.parse_args()
+
+upclient = boto3.client('cognito-idp', region_name=args.region)
+idclient = boto3.client('cognito-identity', region_name=args.region)
+iotclient = boto3.client('iot', region_name=args.region)
 aws_config_file = "PiBot-provisioning-app/src/app/awsconfig.ts"
 
 # get cognito details
