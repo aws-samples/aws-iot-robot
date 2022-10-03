@@ -16,24 +16,18 @@
         "camera_pin_y": "24",
         "lcoil_pins": "21,20,16,12",
         "rcoil_pins": "26,19,13,6",
+        "interpolateComponentConfiguration": true,
         "accessControl": {
           "aws.greengrass.ipc.mqttproxy": {
             "com.pibot.move:mqttproxy:1": {
               "policyDescription": "Subscribe to IoT Core MQTT",
               "operations": [
-                "aws.greengrass#SubscribeToIoTCore"
-              ],
-              "resources": [
-                "$aws/things/pibot-ggv2/shadow/update/accepted"
-              ]
-            },
-            "com.pibot.move:publisher:1": {
-              "policyDescription": "Publish to IoT Core MQTT",
-              "operations": [
+                "aws.greengrass#SubscribeToIoTCore",
                 "aws.greengrass#PublishToIoTCore"
               ],
               "resources": [
-                "$aws/things/pibot-ggv2/shadow/update"
+                "$aws/things/{iot:thingName}/shadow/update/accepted",
+                "$aws/things/{iot:thingName}/shadow/update"
               ]
             }
           }
