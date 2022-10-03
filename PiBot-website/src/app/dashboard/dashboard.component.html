@@ -27,7 +27,7 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <div class="d-flex">
-                <select class="form-control me-2" [(ngModel)]="thingName" placeholder="PiBot IoT Thing Name" aria-label="PiBot IoT Thing Name">
+                <select class="form-control me-2" [(ngModel)]="thingName" (ngModelChange)="setThingName()" placeholder="PiBot IoT Thing Name" aria-label="PiBot IoT Thing Name">
                     <option class="p-2" *ngFor="let thingName of availableThings" [ngValue]="thingName">{{thingName}}</option>
                 </select>
             </div>
