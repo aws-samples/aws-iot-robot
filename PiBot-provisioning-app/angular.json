@@ -122,7 +122,6 @@
       }
     }
   },
-  "defaultProject": "provisioning",
   "cli": {
     "analytics": false
   }
