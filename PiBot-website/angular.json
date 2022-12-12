@@ -124,7 +124,6 @@
       }
     }
   },
-  "defaultProject": "PiBot-website",
   "cli": {
     "analytics": false
   }
