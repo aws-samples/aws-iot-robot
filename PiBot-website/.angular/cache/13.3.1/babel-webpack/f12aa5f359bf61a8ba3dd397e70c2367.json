@@ -1,0 +1,1 @@
+{"ast":null,"code":"export var Role = /*#__PURE__*/(() => {\n  (function (Role) {\n    Role[\"MASTER\"] = \"MASTER\";\n    Role[\"VIEWER\"] = \"VIEWER\";\n  })(Role || (Role = {}));\n\n  return Role;\n})();","map":null,"metadata":{},"sourceType":"module"}

@@ -109,6 +109,7 @@ export class MapComponent extends DashboardComponent implements OnInit,AfterView
 
   processMqttMessage(message)
   {
+    console.log("received mqtt message:",message);
     try
     {
       if ('direction' in message)

@@ -37,11 +37,7 @@ export class MqttService {
   thingName;
 
 
-  constructor() 
-  {
-    //this.topics = ['PiBot/movement','PiBot/proximity','$aws/events/presence/#']
-    //this.topics = ["movement/"+this.thingName+"/",'proximity/'+this.thingName+'/','$aws/events/presence/#'];
-  }
+  constructor() {  }
 
   // mqttservice commands
   private p4sign(key:any, msg:any) 
@@ -68,7 +64,7 @@ export class MqttService {
   setThingName(name)
   {
     this.thingName = name;
-    this.topics = ["movement/"+this.thingName+"/",'proximity/'+this.thingName+'/','$aws/events/presence/#'];
+    this.topics = ["movement/"+this.thingName,'proximity/'+this.thingName,'$aws/events/presence/#'];
   }
 
   connect(accessKey,secretAccessKey,sessionToken)
@@ -129,6 +125,7 @@ export class MqttService {
   {
     this.topics.forEach(topic => {
       this.mqttClient.subscribe(topic);
+      console.log("Subscribed to MQTT topic: ",topic);
     });
   }
 
