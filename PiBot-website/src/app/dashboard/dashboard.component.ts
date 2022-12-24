@@ -68,7 +68,6 @@ export class DashboardComponent implements OnInit {
         this.mqttMessages = this.mqttService.mqttMessages$
             .subscribe(mqttMessages => this.processMqttMessage(mqttMessages));
         this.awsCredentials = this.authService.getCredentials();
-        this.initDashboard();
 
         // Video and Rekognition
         this.rekog = new AWS.Rekognition();
@@ -86,14 +85,15 @@ export class DashboardComponent implements OnInit {
         this.getThings();      
     }
 
-    initDashboard()
+    initMqtt()
     {
         this.mqttService.connect(this.awsCredentials['accessKeyId'],this.awsCredentials['secretAccessKey'],this.awsCredentials['sessionToken']);
     }
 
-    setThingName(name)
+    setThingName()
     {
-        this.thingName = name;
+        this.mqttService.setThingName(this.thingName);
+        this.initMqtt();
     }
 
     processMqttMessage(message)
