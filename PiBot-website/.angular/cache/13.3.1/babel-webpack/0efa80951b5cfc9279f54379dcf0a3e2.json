@@ -1,0 +1,1 @@
+{"ast":null,"code":"var AWS = require('../core');\n\nAWS.util.update(AWS.Lambda.prototype, {\n  /**\n   * @api private\n   */\n  setupRequestListeners: function setupRequestListeners(request) {\n    if (request.operation === 'invoke') {\n      request.addListener('extractData', AWS.util.convertPayloadToString);\n    }\n  }\n});","map":null,"metadata":{},"sourceType":"script"}
