@@ -34,6 +34,7 @@
     "fbemitter": "^3.0.0",
     "fbjs": "^3.0.4",
     "fs": "0.0.1-security",
+    "json5": "^2.2.3",
     "node-fetch": "^3.3.0",
     "paho-mqtt": "^1.1.0",
     "rxjs": "^7.8.0",
