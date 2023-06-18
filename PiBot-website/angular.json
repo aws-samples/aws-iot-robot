@@ -29,6 +29,15 @@
             ],
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.min.js"
+            ],
+            "allowedCommonJsDependencies": [
+              "@aws-crypto/sha256-js",
+              "isomorphic-unfetch",
+              "js-cookie",
+              "amazon-kinesis-video-streams-webrtc",
+              "aws-sdk",
+              "paho-mqtt",
+              "crypto-js"
             ]
           },
           "configurations": {

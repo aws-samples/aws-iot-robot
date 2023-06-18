@@ -27,7 +27,13 @@
               "src/styles.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css"
             ],
-            "scripts": []
+            "scripts": [],
+            "allowedCommonJsDependencies": [
+              "@aws-crypto/sha256-js",
+              "isomorphic-unfetch",
+              "js-cookie",
+              "aws-sdk"
+            ]
           },
           "configurations": {
             "production": {
