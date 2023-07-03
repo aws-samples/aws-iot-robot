@@ -15,6 +15,7 @@
             "echo_GPIO":"17",
             "trigger_GPIO":"27",
             "distance_threshold":"200.0",
+            "interpolateComponentConfiguration": true,
             "accessControl": {
                 "aws.greengrass.ipc.mqttproxy": {
                     "com.pibot.proximity:publisher:1": {
@@ -23,7 +24,7 @@
                             "aws.greengrass#PublishToIoTCore"
                         ],
                         "resources": [
-                            "PiBot/proximity"
+                            "proximity/{iot:thingName}"
                         ]
                     }
                 }
