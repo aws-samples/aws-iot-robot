@@ -25,7 +25,7 @@
     "@types/paho-mqtt": "^1.0.6",
     "amazon-cognito-identity-js": "^6.1.2",
     "amazon-kinesis-video-streams-webrtc": "^2.0.2",
-    "aws-crt": "^1.15.5",
+    "aws-crt": "^1.19.0",
     "aws-iot-device-sdk-v2": "^1.9.0",
     "aws-sdk": "^2.1291.0",
     "bootstrap": "^5.2.3",
