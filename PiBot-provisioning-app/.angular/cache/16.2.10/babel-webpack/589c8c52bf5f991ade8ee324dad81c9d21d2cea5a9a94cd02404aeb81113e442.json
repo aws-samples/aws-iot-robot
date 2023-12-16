@@ -1,1 +1,0 @@
-{"ast":null,"code":"export function fromUtf8(input) {\n  return new TextEncoder().encode(input);\n}\nexport function toUtf8(input) {\n  return new TextDecoder(\"utf-8\").decode(input);\n}","map":null,"metadata":{},"sourceType":"module","externalDependencies":[]}
