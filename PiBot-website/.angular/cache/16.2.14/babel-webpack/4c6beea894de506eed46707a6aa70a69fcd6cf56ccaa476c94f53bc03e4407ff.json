@@ -1,0 +1,1 @@
+{"ast":null,"code":"'use strict';\n\nvar hasSymbols = require('has-symbols/shams');\n\n/** @type {import('.')} */\nmodule.exports = function hasToStringTagShams() {\n  return hasSymbols() && !!Symbol.toStringTag;\n};","map":null,"metadata":{},"sourceType":"script","externalDependencies":[]}

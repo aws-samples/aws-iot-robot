@@ -1,0 +1,1 @@
+{"ast":null,"code":"export var FRAMEWORK = {\n  None: '0',\n  ReactNative: '1'\n};\nexport var AUTH_CATEGORY = 'auth';","map":null,"metadata":{},"sourceType":"module","externalDependencies":[]}

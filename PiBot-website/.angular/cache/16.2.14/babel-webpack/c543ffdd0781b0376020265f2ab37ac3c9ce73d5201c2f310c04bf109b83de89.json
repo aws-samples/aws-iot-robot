@@ -1,0 +1,1 @@
+{"ast":null,"code":"'use strict';\n\nvar whichTypedArray = require('which-typed-array');\n\n/** @type {import('.')} */\nmodule.exports = function isTypedArray(value) {\n  return !!whichTypedArray(value);\n};","map":null,"metadata":{},"sourceType":"script","externalDependencies":[]}
