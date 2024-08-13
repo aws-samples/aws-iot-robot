@@ -19,7 +19,7 @@
     "@angular/platform-browser": "^16.2.12",
     "@angular/platform-browser-dynamic": "^16.2.12",
     "@angular/router": "^16.2.12",
-    "@aws-sdk/client-cognito-identity-provider": "^3.347.0",
+    "@aws-sdk/client-cognito-identity-provider": "^3.629.0",
     "@popperjs/core": "^2.11.6",
     "@types/crypto-js": "^4.1.1",
     "@types/paho-mqtt": "^1.0.6",
