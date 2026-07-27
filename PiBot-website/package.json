@@ -24,7 +24,7 @@
     "@popperjs/core": "^2.11.6",
     "@types/crypto-js": "^4.1.1",
     "@types/paho-mqtt": "^1.0.6",
-    "amazon-cognito-identity-js": "^6.1.2",
+    "amazon-cognito-identity-js": "^6.3.20",
     "amazon-kinesis-video-streams-webrtc": "^2.0.2",
     "aws-crt": "^1.19.0",
     "aws-iot-device-sdk-v2": "^1.9.0",
