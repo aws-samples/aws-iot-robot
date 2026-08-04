@@ -5,6 +5,20 @@ updates:
     schedule:
       interval: "weekly"
     open-pull-requests-limit: 10
+    # Major upgrades (e.g. Angular 21 -> 22, TypeScript 5 -> 7) are breaking
+    # migrations handled deliberately, not via automated PRs. Security patches
+    # and minor/patch updates still flow.
+    ignore:
+      - dependency-name: "@angular/*"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@angular-devkit/*"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "typescript"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@types/node"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "zone.js"
+        update-types: ["version-update:semver-major"]
     groups:
       angular:
         patterns:
@@ -29,6 +43,20 @@ updates:
     schedule:
       interval: "weekly"
     open-pull-requests-limit: 10
+    # Major upgrades (e.g. Angular 21 -> 22, TypeScript 5 -> 7) are breaking
+    # migrations handled deliberately, not via automated PRs. Security patches
+    # and minor/patch updates still flow.
+    ignore:
+      - dependency-name: "@angular/*"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@angular-devkit/*"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "typescript"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@types/node"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "zone.js"
+        update-types: ["version-update:semver-major"]
     groups:
       angular:
         patterns:
