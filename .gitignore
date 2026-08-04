@@ -1,0 +1,83 @@
+# ---------------------------------------------------------------------------
+# Repo-wide .gitignore
+# Per-app rules also live in PiBot-website/.gitignore and
+# PiBot-provisioning-app/.gitignore; these are the repo-wide defaults.
+# ---------------------------------------------------------------------------
+
+# --- Local working docs (design/spec notes, not part of the sample) ---
+/docs/
+
+# --- OS files ---
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# --- Editors / IDEs ---
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.swp
+*.swo
+*~
+*.sublime-workspace
+
+# --- Local agent / tooling state ---
+.claude/
+
+# --- Node / Angular (applies to both PiBot-website and PiBot-provisioning-app) ---
+node_modules/
+dist/
+tmp/
+out-tsc/
+bazel-out/
+.angular/cache/
+/connect.lock
+/coverage
+/libpeerconnection.log
+npm-debug.log*
+yarn-error.log*
+testem.log
+/typings
+
+# --- Python (PiBot robot code) ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+build/
+develop-eggs/
+.installed.cfg
+*.egg
+.venv/
+venv/
+env/
+.pytest_cache/
+.mypy_cache/
+
+# --- AWS / CloudFormation / IaC ---
+.aws-sam/
+packaged*.yaml
+samconfig.toml
+cdk.out/
+*.tfstate
+*.tfstate.*
+.terraform/
+
+# --- Secrets / local config (never commit) ---
+.env
+.env.*
+*.pem
+*.key
+aws-exports.js
+
+# --- Logs & misc ---
+*.log
+*.pid
+*.seed
+*.tgz

@@ -27,6 +27,7 @@ import { MqttService } from '../mqtt.service';
 
 @Component({
   selector: 'app-joymove',
+  standalone: false,
   templateUrl: './joymove.component.html',
   styleUrls: ['./joymove.component.css']
 })

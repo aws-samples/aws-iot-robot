@@ -74,18 +74,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "PiBot-website:build"
+            "buildTarget": "PiBot-website:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "PiBot-website:build:production"
+              "buildTarget": "PiBot-website:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "PiBot-website:build"
+            "buildTarget": "PiBot-website:build"
           }
         },
         "test": {

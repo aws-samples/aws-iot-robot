@@ -27,6 +27,7 @@ import { MqttService } from '../mqtt.service';
 
 @Component({
   selector: 'app-joycam',
+  standalone: false,
   templateUrl: './joycam.component.html',
   styleUrls: ['./joycam.component.css']
 })

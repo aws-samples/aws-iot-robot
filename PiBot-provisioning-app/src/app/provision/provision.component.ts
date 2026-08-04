@@ -24,6 +24,7 @@ import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-provision',
+  standalone: false,
   templateUrl: './provision.component.html',
   styleUrls: ['./provision.component.css']
 })
