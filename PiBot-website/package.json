@@ -20,11 +20,11 @@
     "@angular/platform-browser-dynamic": "^21.2.19",
     "@angular/router": "^21.2.25",
     "@angular/localize": "^21.2.25",
-    "@aws-sdk/client-cognito-identity-provider": "^3.1146.0",
+    "@aws-sdk/client-cognito-identity-provider": "^3.1149.0",
     "@popperjs/core": "^2.11.6",
     "@types/crypto-js": "^4.1.1",
     "@types/paho-mqtt": "^1.0.6",
-    "amazon-cognito-identity-js": "^6.3.20",
+    "amazon-cognito-identity-js": "^6.3.21",
     "amazon-kinesis-video-streams-webrtc": "^2.9.0",
     "aws-crt": "^1.33.2",
     "aws-iot-device-sdk-v2": "^1.28.1",
@@ -42,7 +42,7 @@
     "tls": "0.0.1",
     "tslib": "^2.4.1",
     "util": "^0.12.5",
-    "uuid": "^14.0.2",
+    "uuid": "^14.0.3",
     "zone.js": "~0.16.3"
   },
   "devDependencies": {
